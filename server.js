@@ -59,7 +59,7 @@ app.get('/admin', (req, res) => {
   const password = req.query.password;
   
   // Change 'TeamHorizon2024!' to whatever password you want
-  if (password !== 'TeamHorizon2024!') {
+  if (password !== 'Tsion!') {
     return res.status(401).send(`
       <!DOCTYPE html>
       <html>
