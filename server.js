@@ -54,24 +54,28 @@ app.post('/submit-question', (req, res) => {
 });
 
 // Route to view all questions (for admin)
+// Secure admin page with password protection
 app.get('/admin', (req, res) => {
   const password = req.query.password;
   
-  if (password !== 'Tsion') {
-    return res.status(401).send('Unauthorized. Please contact administrator.');
+  // Change 'TeamHorizon2024!' to whatever password you want
+  if (password !== 'TeamHorizon2024!') {
+    return res.status(401).send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Access Denied</title>
+        <style>body{font-family: Arial; padding: 40px; text-align: center;}</style>
+      </head>
+      <body>
+        <h1>🔒 Access Denied</h1>
+        <p>Unauthorized. Please contact the administrator.</p>
+      </body>
+      </html>
+    `);
   }
-
-  db.all('SELECT * FROM questions ORDER BY created_at DESC', (err, rows) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-    } else {
-      res.json(rows);
-    }
-  });
-});
-
-// Simple admin page to view questions
-app.get('/admin', (req, res) => {
+  
+  // Show the questions table if password is correct
   db.all('SELECT * FROM questions ORDER BY created_at DESC', (err, rows) => {
     if (err) {
       res.status(500).send('Error reading database');
@@ -111,7 +115,6 @@ app.get('/admin', (req, res) => {
     }
   });
 });
-
 // Serve main page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'portfolio.html'));
