@@ -54,7 +54,13 @@ app.post('/submit-question', (req, res) => {
 });
 
 // Route to view all questions (for admin)
-app.get('/admin/questions', (req, res) => {
+app.get('/admin', (req, res) => {
+  const password = req.query.password;
+  
+  if (password !== 'Tsion') {
+    return res.status(401).send('Unauthorized. Please contact administrator.');
+  }
+
   db.all('SELECT * FROM questions ORDER BY created_at DESC', (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message });
