@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Team Horizon — Summer Camp Portfolio</title>
+<meta name="description" content="A professional, interactive portfolio showcasing our INSA summer camp experience." />
+<meta name="theme-color" content="#0ea5e9" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
+<style>
+:root {
+  --bg:#0b1020; --bg-2:#0f172a; --card:#111827; --text:#e5e7eb; --muted:#a1a1aa;
+  --brand:#0ea5e9; --brand-2:#22d3ee; --accent:#a78bfa; --shadow:0 10px 30px rgba(0,0,0,.35);
+  --radius:16px; --maxw:1100px;
+}
+.light { --bg:#f8fafc; --bg-2:#fff; --card:#fff; --text:#0f172a; --muted:#4b5563;
+  --brand:#0284c7; --brand-2:#06b6d4; --accent:#7c3aed; --shadow:0 10px 24px rgba(2,6,23,.08);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Inter,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;scroll-behavior:smooth;}
+img,video{max-width:100%;height:auto;}
+a{text-decoration:none;color:inherit;}
+button{font:inherit;cursor:pointer;}
+::selection{background:rgba(14,165,233,.35);}
+
+/* Header - Mobile First */
+header.site{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(10px);background:color-mix(in oklab,var(--bg-2),transparent 40%);border-bottom:1px solid rgba(255,255,255,.06);}
+.nav{max-width:var(--maxw);margin:0 auto;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;}
+.brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px;}
+.navlinks{position:fixed;top:60px;left:0;right:0;background:var(--bg-2);padding:20px;flex-direction:column;gap:12px;display:none;border-top:1px solid rgba(255,255,255,.06);box-shadow:0 10px 20px rgba(0,0,0,.3);}
+.navlinks.active{display:flex;}
+.navlinks a{padding:12px 16px;border-radius:12px;color:var(--muted);font-weight:600;font-size:16px;transition:.3s;display:block;}
+.navlinks a.active,.navlinks a:hover{color:var(--text);background:linear-gradient(90deg,var(--brand),var(--accent));box-shadow:0 8px 20px rgba(14,165,233,.25);}
+.actions{display:flex;gap:8px;}
+.iconbtn{padding:10px;border-radius:50%;background:color-mix(in oklab,var(--bg-2)85%,#00015%);border:1px solid rgba(255,255,255,.08);font-size:18px;}
+.menu-toggle{display:block;font-size:24px;}
+
+/* Hero with particles and image - Mobile First */
+.hero{max-width:var(--maxw);margin:0 auto;padding:60px 16px 30px;display:flex;flex-direction:column;gap:24px;align-items:center;position:relative;overflow:hidden;text-align:center;}
+.hero::before{content:"";position:absolute;inset:0;background:transparent;pointer-events:none;z-index:0;}
+#particles{position:absolute;inset:0;z-index:0;}
+.hero div, .hero img{position:relative;z-index:1;}
+.hero div{opacity:0;transform:translateY(20px);animation:fadeUp 1s forwards;animation-delay:0.3s;}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+.title{font-family:"Playfair Display",serif;font-size:clamp(28px,6vw,48px);margin:6px 0 10px;line-height:1.2;}
+.subtitle{color:var(--muted);font-size:clamp(16px,2vw,18px);max-width:100%;margin:0 auto;}
+.hero-cta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;justify-content:center;}
+.pill{padding:12px 20px;border-radius:999px;background:linear-gradient(90deg,var(--brand),var(--accent));color:#fff;font-weight:700;border:none;box-shadow:var(--shadow);transition:transform .3s;font-size:16px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;}
+.pill:hover{transform:scale(1.05);}
+.hero img{border-radius:50%;width:180px;height:180px;object-fit:cover;opacity:0;transform:translateY(20px);animation:slideIn 1s forwards;animation-delay:0.5s;box-shadow:0 10px 30px rgba(0,0,0,.4);}
+@keyframes slideIn{to{opacity:1;transform:translateY(0);}}
+
+/* Sections and Cards */
+section{max-width:var(--maxw);margin:0 auto;padding:40px 16px;}
+h2{font-family:"Playfair Display",serif;font-size:clamp(24px,4vw,32px);margin-bottom:20px;text-align:center;}
+.grid{display:grid;gap:16px;grid-template-columns:1fr;}
+.card{background:var(--card);border-radius:var(--radius);padding:20px;border:1px solid rgba(255,255,255,.06);box-shadow:var(--shadow);opacity:0;transform:translateY(20px);transition:all .6s ease-out;}
+.card.visible{opacity:1;transform:translateY(0);}
+.card h3{margin:6px 0 8px;font-size:18px;}
+.card p{color:var(--muted);font-size:15px;}
+
+/* Gallery */
+.gallery{display:grid;gap:12px;grid-template-columns:1fr;}
+.gallery img{border-radius:12px;cursor:pointer;transition:transform .4s,box-shadow .4s;width:100%;height:auto;}
+.gallery img:hover{transform:scale(1.03);box-shadow:0 8px 30px rgba(0,0,0,.5);}
+
+/* Timeline */
+.timeline{position:relative;margin-top:24px;padding-left:30px;}
+.timeline::before{content:"";position:absolute;left:12px;top:0;bottom:0;width:3px;background:linear-gradient(var(--brand),var(--accent));}
+.t-item{position:relative;margin-bottom:24px;background:var(--card);border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,.06);box-shadow:var(--shadow);opacity:0;transform:translateX(-30px);transition:all .6s ease-out;}
+.t-item.visible{opacity:1;transform:translateX(0);}
+.t-item::before{content:"";position:absolute;left:-24px;top:18px;width:14px;height:14px;background:var(--bg-2);border:3px solid var(--brand-2);border-radius:50%;}
+.t-item h4{font-size:18px;margin-bottom:6px;}
+
+/* Footer */
+footer{padding:32px 16px;border-top:1px solid rgba(255,255,255,.06);background:color-mix(in oklab,var(--bg-2),transparent 10%);text-align:center;color:var(--muted);opacity:0;transition:opacity 1s;font-size:14px;}
+footer.visible{opacity:1;}
+
+/* Contact icons */
+.contact-icons{display:flex;gap:16px;font-size:28px;justify-content:center;margin-top:16px;}
+.contact-icons a{color:var(--brand);transition:transform .3s;display:inline-block;}
+.contact-icons a:hover{transform:scale(1.2);color:var(--accent);}
+
+/* Quick Contact Pulse */
+#quick-contact-btn{position:fixed;bottom:20px;right:20px;z-index:1000;}
+#quick-contact-btn button{animation:pulse 2.5s infinite;min-width:60px;min-height:60px;border-radius:50%;font-size:20px;}
+@keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
+
+/* Quick Contact Form */
+#quick-contact-popup{display:none;position:fixed;bottom:80px;right:16px;left:16px;background:var(--card);padding:20px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.35);z-index:1001;max-width:400px;margin:0 auto;}
+#quick-contact-popup h3{margin-bottom:16px;text-align:center;}
+#contactForm input, #contactForm textarea{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:var(--bg-2);color:var(--text);font-size:16px;}
+#contactForm textarea{min-height:100px;resize:vertical;}
+#contactForm button{width:100%;margin-top:8px;}
+
+/* Tablet and Desktop Styles */
+@media (min-width: 768px) {
+  .menu-toggle{display:none;}
+  .nav{padding:14px 20px;grid-template-columns:auto 1fr auto;display:grid;}
+  .navlinks{position:static;display:flex;flex-direction:row;padding:0;background:transparent;border-top:none;box-shadow:none;gap:6px;}
+  .navlinks a{padding:8px 12px;font-size:14px;}
+  .hero{padding:80px 20px 40px;grid-template-columns:1.2fr .8fr;text-align:left;gap:28px;}
+  .hero-cta{justify-content:flex-start;}
+  .hero img{width:220px;height:220px;}
+  .grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+  .gallery{grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+  .timeline{padding-left:50px;}
+  .timeline::before{left:20px;}
+  .t-item::before{left:-34px;width:20px;height:20px;}
+  #quick-contact-popup{right:24px;left:auto;width:350px;}
+}
+
+@media (min-width: 1024px) {
+  .hero img{width:250px;height:250px;}
+  .grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+  .gallery{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+}
+</style>
+</head>
+<body>
+
+<header class="site">
+<nav class="nav">
+  <div class="brand"><i class="ri-planet-line"></i> Team Horizon</div>
+  <button class="menu-toggle iconbtn" id="menuToggle"><i class="ri-menu-line"></i></button>
+  <div class="navlinks" id="navLinks">
+    <a href="#about">About</a>
+    <a href="#exam">Entrance Exam</a>
+    <a href="#projects">Projects</a>
+    <a href="#challenges">Challenges</a>
+    <a href="#friends">Friends</a>
+    <a href="#insa-insights">Camp Insights</a>
+    <a href="#reflection">Reflections</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="actions">
+    <button class="iconbtn" id="themeBtn"><i class="ri-moon-line"></i></button>
+  </div>
+</nav>
+</header>
+
+<section class="hero">
+  <div>
+    <h1 class="title">A Bold Summer of Firsts and Friendships</h1>
+    <p class="subtitle">Stepping into BDU University for the INSA summer camp was a dream come true. From coding to cybersecurity, we experienced growth, challenges, and unforgettable memories.</p>
+    <div class="hero-cta">
+      <a class="pill" href="#projects">Explore Projects</a>
+      <a class="pill" href="#gallery">View Gallery</a>
+    </div>
+  </div>
+  <img src="https://images.unsplash.com/photo-1503264116251-35a269479413?q=80&w=800&auto=format&fit=crop" alt="Team Horizon Photo">
+  <canvas id="particles"></canvas>
+</section>
+
+<section id="about">
+<h2>About Team Horizon</h2>
+<p>We are a group of passionate learners in Cybersecurity and Development. During the camp, we enhanced our skills, built Future Focus website for high school students, and shared our experience for future applicants.</p>
+</section>
+
+<section id="exam">
+<h2>Entrance Exam Success</h2>
+<p>We kicked off our journey by passing the entrance exam, which gave us confidence before setting foot on campus.</p>
+</section>
+
+<section id="projects">
+<h2>Projects & Learning</h2>
+<div class="grid">
+<div class="card"><h3>Future Focus Website</h3><p>Front-end and offline access improvements for grade 11 students.</p></div>
+<div class="card"><h3>Cybersecurity Projects</h3><p>Hands-on exercises, research, and teamwork challenges.</p></div>
+<div class="card"><h3>Interactive Workshops</h3><p>Turning complex ideas into practical skills.</p></div>
+</div>
+</section>
+
+<section id="challenges">
+<h2>Challenges We Overcame</h2>
+<p>Adapting to Cybersecurity after choosing Development, campus life, and program arrangements in Bahirdar tested our resilience.</p>
+</section>
+
+<section id="friends">
+<h2>Friendship Moments</h2>
+     <p class="lead">We met amazing people like <strong>Ruhama</strong> and <strong>Ruth</strong>—friends who celebrated wins, shared notes, and kept us going.</p>
+<div class="grid">
+<div class="card"><h3>Supportive Friends</h3><p>Guidance on matric prep and college choices.</p></div>
+<div class="card"><h3>Celebrations</h3><p>Birthdays and traditions that became big memories.</p></div>
+<div class="card"><h3>Team Spirit</h3><p>Turning challenges into shared experiences.</p></div>
+</div>
+</section>
+
+<section id="insa-insights">
+<h2>INSA Summer Camp Insights</h2>
+<div class="grid">
+<div class="card"><h3>Challenges</h3><p>Fast-paced learning, group tasks, and adapting to new tracks.</p></div>
+<div class="card"><h3>Projects</h3><p>Hands-on coding, security simulations, research presentations.</p></div>
+<div class="card"><h3>Workshops</h3><p>Interactive sessions with practical applications.</p></div>
+<div class="card"><h3>Tips for Applicants</h3><p>Practice coding basics, teamwork, curiosity, resilience.</p></div>
+</div>
+<p style="margin-top:20px;text-align:center;"><a class="pill" href="https://www.insa.edu.et" target="_blank">Learn More & Apply Next Year</a></p>
+</section>
+
+<section id="reflection">
+<h2>Reflections</h2>
+<blockquote class="card" style="font-size:18px;">
+  <p>“This camp was a once‑in‑a‑lifetime experience. From overcoming challenges to making lifelong friends, every moment was inspiring.”</p>
+  <footer style="margin-top:12px; color:var(--muted);">— Our Team</footer>
+</blockquote>
+</section>
+
+<section id="gallery">
+<h2>Gallery</h2>
+<div class="gallery">
+<img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800&auto=format&fit=crop" alt="Hands-on learning">
+<img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop" alt="Teamwork projects">
+<img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=800&auto=format&fit=crop" alt="Evening moments">
+</div>
+</section>
+
+<section id="timeline">
+<h2>Timeline of Our Summer</h2>
+<div class="timeline">
+<div class="t-item"><h4>Entrance Exam</h4><p>We started our journey by passing the entrance exam.</p></div>
+<div class="t-item"><h4>First Day @ University</h4><p>Orientation day brought new faces and energy.</p></div>
+<div class="t-item"><h4>Cybersecurity Lessons</h4><p>Adapting to a new track challenged and inspired us.</p></div>
+<div class="t-item"><h4>Future Focus Project</h4><p>Improved website, applied new skills, made it offline for free access.</p></div>
+<div class="t-item"><h4>Birthday Celebrations</h4><p>We celebrated friendships that made every moment brighter.</p></div>
+<div class="t-item"><h4>End of Camp</h4><p>Left with memories, skills, and bonds to last a lifetime.</p></div>
+</div>
+</section>
+
+<section id="contact">
+<h2>Contact Us</h2>
+<p>Reach out for questions about the INSA Summer Camp or our projects:</p>
+<div class="contact-icons">
+<a href="mailto:teamhorizon@example.com" title="Email"><i class="ri-mail-line"></i></a>
+<a href="https://t.me/teamhorizon" target="_blank" title="Telegram"><i class="ri-telegram-line"></i></a>
+<a href="https://instagram.com/teamhorizon" target="_blank" title="Instagram"><i class="ri-instagram-line"></i></a>
+</div>
+</section>
+
+<div id="quick-contact-btn">
+  <button class="pill">💬 Ask Us</button>
+</div>
+
+<div id="quick-contact-popup">
+  <h3>Ask Us About INSA Camp</h3>
+  <form id="contactForm">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="question" placeholder="Your Question" required></textarea>
+    <button type="submit" class="pill">Send</button>
+  </form>
+</div>
+
+<footer>© 2025 Team Horizon — Built with passion. Designed for future INSA applicants.</footer>
+
+<script>
+// Mobile menu toggle
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+  menuToggle.innerHTML = navLinks.classList.contains('active') ? 
+    '<i class="ri-close-line"></i>' : '<i class="ri-menu-line"></i>';
+});
+
+// Close menu when clicking on a link
+document.querySelectorAll('.navlinks a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('active');
+    menuToggle.innerHTML = '<i class="ri-menu-line"></i>';
+  });
+});
+
+// Theme toggle
+const themeBtn = document.getElementById('themeBtn');
+themeBtn.addEventListener('click',()=>{
+  document.body.classList.toggle('light');
+  themeBtn.innerHTML=document.body.classList.contains('light')?'<i class="ri-moon-line"></i>':'<i class="ri-sun-line"></i>';
+});
+
+// Scroll animations
+const sections=document.querySelectorAll('section[id]');
+const navLinksList=document.querySelectorAll('.navlinks a');
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(s=>{if(scrollY>=s.offsetTop-80) current=s.getAttribute('id');});
+  navLinksList.forEach(a=>{a.classList.remove('active');if(a.getAttribute('href')=='#'+current)a.classList.add('active');});
+  document.querySelectorAll('.card').forEach(c=>{if(c.getBoundingClientRect().top<window.innerHeight-50)c.classList.add('visible');});
+  document.querySelectorAll('.t-item').forEach((i,n)=>{if(i.getBoundingClientRect().top<window.innerHeight-50)setTimeout(()=>i.classList.add('visible'),n*150);});
+  const footer=document.querySelector('footer');if(footer.getBoundingClientRect().top<window.innerHeight)footer.classList.add('visible');
+});
+
+// Particle background
+const canvas=document.getElementById('particles');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+const particlesArray=[];
+class Particle{constructor(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.size=Math.random()*3+1;this.speedX=Math.random()*1-0.5;this.speedY=Math.random()*1-0.5;}update(){this.x+=this.speedX;this.y+=this.speedY;if(this.x>canvas.width)this.x=0;if(this.x<0)this.x=canvas.width;if(this.y>canvas.height)this.y=0;if(this.y<0)this.y=canvas.height;}draw(){ctx.fillStyle='rgba(14,165,233,0.4)';ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();}};
+function initParticles(){for(let i=0;i<100;i++)particlesArray.push(new Particle());}
+function animateParticles(){ctx.clearRect(0,0,canvas.width,canvas.height);particlesArray.forEach(p=>{p.update();p.draw();});requestAnimationFrame(animateParticles);}
+initParticles();animateParticles();
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+
+// Quick contact
+const quickBtn = document.querySelector('#quick-contact-btn button');
+const quickPopup = document.getElementById('quick-contact-popup');
+quickBtn.addEventListener('click', () => {
+  quickPopup.style.display = quickPopup.style.display === 'block' ? 'none' : 'block';
+});
+
+// Close popup when clicking outside
+document.addEventListener('click', (e) => {
+  if (quickPopup.style.display === 'block' && 
+      !quickPopup.contains(e.target) && 
+      e.target !== quickBtn && 
+      !quickBtn.contains(e.target)) {
+    quickPopup.style.display = 'none';
+  }
+});
+
+// Form submission for SQLite3
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const formData = new FormData(e.target);
+  const data = {
+    name: formData.get('name'),
+    email: formData.get('email'),
+    question: formData.get('question')
+  };
+  
+  try {
+    const response = await fetch('/submit-question', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      alert('Thank you! Your question has been sent.');
+      e.target.reset();
+      quickPopup.style.display = 'none';
+    } else {
+      alert('Sorry, there was an error submitting your question. Please try again.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Sorry, there was an error submitting your question. Please try again.');
+  }
+});
+</script>
+</body>
+</html>
